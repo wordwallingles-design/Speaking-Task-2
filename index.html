@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speaking Assessment - Colegio San Ignacio</title>
+    <style>
+        :root {
+            --primary-dark: #1a2a3a;
+            --oxford-blue: #002147;
+            --accent-blue: #3498db;
+            --record-red: #e74c3c;
+            --play-green: #2ecc71;
+            --bg-gray: #f4f7f6;
+            --white: #ffffff;
+            --text-main: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .oxford-box {
+            background-color: var(--oxford-blue);
+            color: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Estilos para el Formulario de Estudiante */
+        .student-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .input-group { display: flex; flex-direction: column; gap: 5px; }
+        input, select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            padding: 25px;
+            border: 1px solid #e1e8ed;
+            border-radius: 12px;
+        }
+
+        h2 { color: var(--primary-dark); border-left: 4px solid var(--accent-blue); padding-left: 15px; }
+
+        .instruction-text {
+            display: block;
+            margin: 15px 0;
+            font-weight: 600;
+            background: #eef2f3;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .media-wrapper {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .media-wrapper iframe {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+        }
+
+        .recorder-box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .timer { font-family: monospace; font-size: 1.8rem; font-weight: bold; }
+        
+        .indicator {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .recording { background: var(--record-red); color: white; animation: blink 1.5s infinite; }
+        .stopped { background: #95a5a6; color: white; }
+
+        .controls { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-record { background: var(--record-red); color: white; }
+        .btn-submit { background: var(--accent-blue); color: white; }
+        .btn-download { background: var(--play-green); color: white; }
+        button:disabled { background: #ccc !important; cursor: not-allowed; }
+
+        audio { width: 100%; max-width: 400px; margin-top: 10px; }
+
+        @keyframes blink { 50% { opacity: 0.6; } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="oxford-box">
+            <h3>COLEGIO SAN IGNACIO</h3>
+            <p><b>Speaking Task 2 - 8th grades</b></p>
+        </div>
+
+        <div class="student-info">
+            <div class="input-group">
+                <label>Student Full Name:</label>
+                <input type="text" id="studentName" placeholder="e.g. John Doe">
+            </div>
+            <div class="input-group">
+                <label>Class:</label>
+                <select id="studentClass">
+                    <option value="">Select Grade</option>
+                    <option value="8th_A">8th grade A</option>
+                    <option value="8th_B">8th grade B</option>
+                    <option value="8th_C">8th grade C</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Image Description</h2>
+            <span class="instruction-text">“Fully describe these 2 images for at least 1 minute”</span>
+            
+            <div class="media-wrapper">
+                <iframe src="https://drive.google.com/file/d/17mQNmIIFMQ9YTH2TjPlSnLxFLujGCDZ_/preview"></iframe>
+<iframe src="https://drive.google.com/file/d/1N3pf2kWj7fyCNaPs5Z2NvlwtDM-QQAPi/preview"></iframe>
+                            </div>
+
+            <div class="recorder-box" id="rec-seccion1">
+                <div class="timer">00:00 / 02:00</div>
+                <div class="indicator stopped">Ready</div>
+                
+                <audio controls id="audioPlayback" class="player"></audio>
+
+                <div class="controls">
+                    <button class="btn-record" id="recordBtn">RECORD</button>
+                    <button class="btn-download" id="downloadBtn" disabled>DOWNLOAD FILE</button>
+                    <button class="btn-submit" id="submitBtn" disabled>SUBMIT TO DRIVE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz-869coAx_8av145_Ai5gA673dKDt8KR-aqYS4e-HrL9ub0smZ1qAHbFa90EXzYg9M4Q/exec"; 
+        const MAX_TIME = 120; 
+
+        let mediaRecorder;
+        let audioChunks = [];
+        let timerInterval;
+        let seconds = 0;
+        let audioBlob;
+
+        const recordBtn = document.getElementById('recordBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const audioPlayback = document.getElementById('audioPlayback');
+        const timerEl = document.querySelector('.timer');
+        const statusEl = document.querySelector('.indicator');
+
+        // Función para formatear el nombre del archivo
+        function getFileName() {
+            const name = document.getElementById('studentName').value.trim().replace(/\s+/g, '_');
+            const grade = document.getElementById('studentClass').value;
+            return name && grade ? `${name}_${grade}_Section1.webm` : "Recording_Section1.webm";
+        }
+
+        async function toggleRecording() {
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                mediaRecorder.stop();
+                return;
+            }
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.onstart = () => {
+                    seconds = 0;
+                    recordBtn.textContent = "STOP";
+                    statusEl.className = "indicator recording";
+                    statusEl.textContent = "Recording...";
+                    downloadBtn.disabled = true;
+                    submitBtn.disabled = true;
+                    
+                    timerInterval = setInterval(() => {
+                        seconds++;
+                        const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+                        const s = (seconds % 60).toString().padStart(2, '0');
+                        timerEl.textContent = `${m}:${s} / 02:00`;
+                        if (seconds >= MAX_TIME) mediaRecorder.stop();
+                    }, 1000);
+                };
+
+                mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+
+                mediaRecorder.onstop = () => {
+                    clearInterval(timerInterval);
+                    audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    audioPlayback.src = audioUrl;
+                    
+                    recordBtn.textContent = "RECORD NEW";
+                    statusEl.className = "indicator stopped";
+                    statusEl.textContent = "Recorded";
+                    
+                    downloadBtn.disabled = false;
+                    submitBtn.disabled = false;
+                    stream.getTracks().forEach(t => t.stop());
+                };
+
+                mediaRecorder.start();
+            } catch (err) {
+                alert("Please allow microphone access.");
+            }
+        }
+
+        // Función Descargar
+        downloadBtn.onclick = () => {
+            const name = document.getElementById('studentName').value;
+            const grade = document.getElementById('studentClass').value;
+            
+            if (!name || !grade) {
+                alert("Please enter your Name and Class before downloading.");
+                return;
+            }
+
+            const url = URL.createObjectURL(audioBlob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = getFileName();
+            a.click();
+        };
+
+        // Función Subir (Google Drive)
+        submitBtn.onclick = async () => {
+            const name = document.getElementById('studentName').value;
+            const grade = document.getElementById('studentClass').value;
+
+            if (!name || !grade) {
+                alert("Please fill in your Name and Class.");
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Sending...";
+
+            const reader = new FileReader();
+            reader.readAsDataURL(audioBlob);
+            reader.onloadend = async () => {
+                const base64data = reader.result.split(',')[1];
+                const payload = {
+                    filename: getFileName(),
+                    mimeType: 'audio/webm',
+                    data: base64data
+                };
+
+                try {
+                    await fetch(SCRIPT_URL, {
+                        method: "POST",
+                        body: JSON.stringify(payload),
+                        headers: { "Content-Type": "text/plain;charset=utf-8" }
+                    });
+                    alert("Successful submission!");
+                    submitBtn.textContent = "SENT";
+                } catch (e) {
+                    alert("Error uploading. Use the Download button to save your work.");
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "SUBMIT TO DRIVE";
+                }
+            };
+        };
+
+        recordBtn.onclick = toggleRecording;
+    </script>
+</body>
+</html>
